@@ -6,6 +6,7 @@ import { AddQuizModal } from "./AddQuizModal";
 
 import "./Quizzer.css";
 import sample from "../data/quizzes.json";
+//import { Button } from "react-bootstrap";
 
 const QUIZZES = sample.map(
     (quiz): Quiz => ({
@@ -20,7 +21,7 @@ const QUIZZES = sample.map(
     })
 );
 
-export const Quizzer = () => {
+export function Quizzer (): JSX.Element {
     const [quizzes, setQuizzes] = useState<Quiz[]>(QUIZZES);
     const [showAddModal, setShowAddModal] = useState(false);
 
@@ -30,7 +31,13 @@ export const Quizzer = () => {
         );
     }
 
-    function addQuiz(title: string, body: string) {
+    const addQuiz = (title: string, body: string) => {
+        const newQuiz: Quiz = {
+            title: title, body: body,
+            id: 0,
+            published: false,
+            questionList: []
+        };
         setQuizzes([...quizzes, newQuiz]);
     }
 
@@ -38,7 +45,7 @@ export const Quizzer = () => {
         setQuizzes(quizzes.filter((q: Quiz): boolean => qId !== q.id));
     }
 
-    const handleShowModal = () => setShowAddModal(true);
+    const handleShowModal = () => { console.log(showAddModal); setShowAddModal(true); };
     const handleCloseModal = () => setShowAddModal(false);
 
     return (
@@ -47,11 +54,11 @@ export const Quizzer = () => {
                 quizzes={quizzes}
                 editQuiz={editQuiz}
                 deleteQuiz={deleteQuiz}
-                showModal={handleShowModal}
+                handleShowModal={handleShowModal}
             ></QuizList>
             <AddQuizModal
                 show={showAddModal}
-                handleClose={handleCloseModal}
+                handleCloseModal={handleCloseModal}
                 addQuiz={addQuiz}
             ></AddQuizModal>
             <hr />

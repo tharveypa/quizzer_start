@@ -6,18 +6,24 @@ import { Quiz } from "../interfaces/quiz";
 import "./QuizExpanded.css";
 import { QuizQuestion } from "./QuizQuestion";
 
-export const QuizExpanded = ({
+export function QuizExpanded ({
     quiz,
     editQuiz,
-    resetView,
+    resetQuizView,
     switchEdit
-}: {}) => {
+}: {
+    quiz: Quiz,
+    editQuiz: (qId: number, newQuiz: Quiz) => void,
+    resetQuizView:() => void,
+    switchEdit: () => void
+}): JSX.Element{
+    
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
             (quiz.published && q.published) || !quiz.published
     );
 
-    const [p, sp] = useState<number>(0);
+    const [points, setPoints] = useState<number>(0);
     const [submitArr, setSubmitArr] = useState<boolean[]>(
         new Array(filteredQuestions.length)
     );
@@ -29,15 +35,16 @@ export const QuizExpanded = ({
     };
 
     const totalPoints = filteredQuestions.reduce(
-        (prev: number, q: Question): number => prev + q.p,
+        (prev: number, q: Question): number => prev + q.points,
         0
     );
 
     const addPoints = (p: number) => {
-        sp((prevCount) => prevCount + p);
+        setPoints((prevCount) => prevCount + p);
     };
 
     const reset = () => {
+        console.log("daf")
         setSubmitArr(new Array(filteredQuestions.length));
         editQuiz(quiz.id, {
             ...quiz,
@@ -46,14 +53,13 @@ export const QuizExpanded = ({
             )
         });
 
-        sp(0);
+        setPoints(0);
     };
 
     const editQuestionSub = (questionId: number, sub: string) => {
         editQuiz(quiz.id, {
             ...quiz,
-            questionList: quiz.questionList.map(
-            )
+            questionList: quiz.questionList.map((question: Question): Question => questionId === question.id ? {...question, submission: sub} : {...question})
         });
     };
 
@@ -74,6 +80,7 @@ export const QuizExpanded = ({
                         onClick={() => {
                             reset();
                             switchEdit();
+                            console.log("hufdahif")
                         }}
                     >
                         Edit
@@ -81,7 +88,7 @@ export const QuizExpanded = ({
                     <Button
                         className="esc_button text-align-center"
                         variant="danger"
-                        onClick={resetView}
+                        onClick={resetQuizView}
                     >
                         {"Exit"}
                     </Button>
@@ -92,9 +99,9 @@ export const QuizExpanded = ({
                 <QuizQuestion
                     key={quiz.id + "|" + q.id}
                     index={index}
-                    question="q"
+                    question = {q}
                     submitted={submitArr[index]}
-                    handleSubmit={handleQuestionSubmit}
+                    handleQuestionSubmit={handleQuestionSubmit}
                     addPoints={addPoints}
                     editQuestionSub={editQuestionSub}
                 ></QuizQuestion>
@@ -105,7 +112,7 @@ export const QuizExpanded = ({
                     Reset
                 </Button>
                 <span className="score_report">
-                    {p}/{totalPoints}
+                    {points}/{totalPoints}
                 </span>
             </div>
         </>
