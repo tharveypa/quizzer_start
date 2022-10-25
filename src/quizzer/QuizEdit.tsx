@@ -14,11 +14,10 @@ export const QuizEdit = ({
     resetView
 }: {
     quiz: Quiz;
-    editQuiz: (id: number, qu:Quiz)=>void;
-    deleteQuiz: (id: number)=>void;
-    switchEdit : ()=>void;
-    resetView: ()=>void;
-
+    editQuiz: (id: number, qu: Quiz) => void;
+    deleteQuiz: (id: number) => void;
+    switchEdit: () => void;
+    resetView: () => void;
 }) => {
     const [newQuiz, setNewQuiz] = useState<Quiz>({ ...quiz });
 
@@ -26,16 +25,17 @@ export const QuizEdit = ({
         setNewQuiz({
             ...newQuiz,
             questionList: newQuiz.questionList.map(
-                (q: Question): Question => (q.id===questionId)? newQuestion:q
-                )
+                (q: Question): Question =>
+                    q.id === questionId ? newQuestion : q
+            )
         });
     };
-//might need deep copies of options 
+    //might need deep copies of options
     const removeQuestion = (questionId: number) => {
         setNewQuiz({
             ...newQuiz,
             questionList: newQuiz.questionList.filter(
-                (q: Question): boolean => q.id!==questionId
+                (q: Question): boolean => q.id !== questionId
             )
         });
     };

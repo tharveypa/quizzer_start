@@ -9,7 +9,7 @@ export const QuizCard = ({
     handleClick
 }: {
     quiz: Quiz;
-    handleClick: (id: number)=>void;
+    handleClick: (id: number) => void;
 }) => {
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
