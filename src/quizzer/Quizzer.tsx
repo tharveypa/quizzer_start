@@ -14,7 +14,7 @@ const QUIZZES = sample.map(
             (q): Question => ({
                 ...q,
                 submission: "",
-                type: q.type as QuestionType
+                type: q.type as QuestionType //interesting
             })
         )
     })
@@ -22,7 +22,7 @@ const QUIZZES = sample.map(
 
 export const Quizzer = () => {
     const [quizzes, setQuizzes] = useState<Quiz[]>(QUIZZES);
-    const [showAddModal, setShowAddModal] = useState(false);
+    const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
     function editQuiz(qId: number, newQuiz: Quiz) {
         setQuizzes(
