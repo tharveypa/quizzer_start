@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1666812939957" clover="3.2.0">
+  <project timestamp="1666812939957" name="All files">
+    <metrics statements="142" coveredstatements="114" conditionals="58" coveredconditionals="46" methods="73" coveredmethods="55" elements="273" coveredelements="215" complexity="0" loc="142" ncloc="142" packages="3" files="12" classes="12"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="App.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\App.tsx">
+        <metrics statements="3" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.interfaces">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="question.ts" path="C:\Users\blade\Workspaces\quizzer_start\src\interfaces\question.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="quiz.ts" path="C:\Users\blade\Workspaces\quizzer_start\src\interfaces\quiz.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.quizzer">
+      <metrics statements="139" coveredstatements="114" conditionals="54" coveredconditionals="46" methods="71" coveredmethods="55"/>
+      <file name="AddQuizModal.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\AddQuizModal.tsx">
+        <metrics statements="14" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="2"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="14" count="31" type="stmt"/>
+        <line num="15" count="31" type="stmt"/>
+        <line num="17" count="31" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="31" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+      </file>
+      <file name="QuestionEdit.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuestionEdit.tsx">
+        <metrics statements="30" coveredstatements="14" conditionals="12" coveredconditionals="8" methods="15" coveredmethods="6"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="23" count="54" type="stmt"/>
+        <line num="24" count="53" type="stmt"/>
+        <line num="27" count="54" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="39" count="54" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="49" count="54" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="54" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="67" count="54" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="76" count="54" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
+        <line num="179" count="81" type="stmt"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="218" count="2" type="stmt"/>
+        <line num="227" count="0" type="stmt"/>
+        <line num="243" count="1" type="stmt"/>
+        <line num="252" count="0" type="stmt"/>
+      </file>
+      <file name="QuizCard.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizCard.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="5" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="14" count="85" type="stmt"/>
+        <line num="16" count="336" type="cond" truecount="3" falsecount="0"/>
+        <line num="19" count="85" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
+      </file>
+      <file name="QuizEdit.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizEdit.tsx">
+        <metrics statements="25" coveredstatements="21" conditionals="6" coveredconditionals="6" methods="15" coveredmethods="11"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="22" count="13" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="27" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="13" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="39" count="13" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="43" count="13" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
+        <line num="48" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="56" count="13" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="106" count="54" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
+        <line num="148" count="5" type="stmt"/>
+        <line num="149" count="5" type="stmt"/>
+        <line num="161" count="1" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+      </file>
+      <file name="QuizExpanded.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizExpanded.tsx">
+        <metrics statements="25" coveredstatements="25" conditionals="7" coveredconditionals="6" methods="12" coveredmethods="12"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="20" count="20" type="stmt"/>
+        <line num="22" count="81" type="cond" truecount="3" falsecount="0"/>
+        <line num="25" count="20" type="stmt"/>
+        <line num="26" count="20" type="stmt"/>
+        <line num="30" count="20" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="36" count="20" type="stmt"/>
+        <line num="37" count="46" type="stmt"/>
+        <line num="41" count="20" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="20" type="stmt"/>
+        <line num="46" count="7" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="50" count="28" type="stmt"/>
+        <line num="54" count="7" type="stmt"/>
+        <line num="57" count="20" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="60" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="20" type="stmt"/>
+        <line num="79" count="6" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="96" count="46" type="stmt"/>
+      </file>
+      <file name="QuizList.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizList.tsx">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="19" count="41" type="stmt"/>
+        <line num="21" count="41" type="stmt"/>
+        <line num="22" count="10" type="stmt"/>
+        <line num="25" count="41" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="29" count="41" type="stmt"/>
+        <line num="34" count="85" type="stmt"/>
+        <line num="46" count="205" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="24" type="stmt"/>
+        <line num="57" count="181" type="stmt"/>
+      </file>
+      <file name="QuizQuestion.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizQuestion.tsx">
+        <metrics statements="10" coveredstatements="10" conditionals="14" coveredconditionals="12" methods="4" coveredmethods="4"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="23" count="46" type="stmt"/>
+        <line num="24" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="29" count="46" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="36" count="46" type="stmt"/>
+        <line num="62" count="72" type="stmt"/>
+      </file>
+      <file name="QuizView.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\QuizView.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="19" count="24" type="stmt"/>
+        <line num="21" count="24" type="stmt"/>
+        <line num="23" count="11" type="stmt"/>
+        <line num="26" count="24" type="stmt"/>
+      </file>
+      <file name="Quizzer.tsx" path="C:\Users\blade\Workspaces\quizzer_start\src\quizzer\Quizzer.tsx">
+        <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="10" coveredmethods="10"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="14" count="20" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="32" type="stmt"/>
+        <line num="25" count="31" type="stmt"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="29" count="70" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="42" count="31" type="stmt"/>
+        <line num="43" count="31" type="stmt"/>
+        <line num="45" count="31" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
