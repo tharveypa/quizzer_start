@@ -53,7 +53,6 @@ export const QuizList = ({
                             resetView={resetQuizView}
                         ></QuizView>
                     );
-                    //suss
                 }
             })}
         </div>
