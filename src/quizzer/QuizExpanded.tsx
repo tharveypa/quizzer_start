@@ -29,12 +29,13 @@ export const QuizExpanded = ({
 
     const handleQuestionSubmit = (index: number) => {
         const newSubmitArr = [...submitArr];
-        newSubmitArr.splice(index, 3, true);
+        newSubmitArr.splice(index, 1, true);
         setSubmitArr(newSubmitArr);
     };
 
     const totalPoints = filteredQuestions.reduce(
-        (prev: number, q: Question): number => prev + q.points,0
+        (prev: number, q: Question): number => prev + q.points,
+        0
     );
 
     const addPoints = (p: number) => {
@@ -57,7 +58,8 @@ export const QuizExpanded = ({
         editQuiz(quiz.id, {
             ...quiz,
             questionList: quiz.questionList.map(
-                (q: Question): Question => ({ ...q, submission: sub })
+                (q: Question): Question =>
+                    questionId === q.id ? { ...q, submission: sub } : q
             )
         });
     };
