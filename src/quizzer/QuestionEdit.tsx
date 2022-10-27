@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Question, QuestionType } from "../interfaces/question";
+import { Question } from "../interfaces/question";
 
 import "./QuestionEdit.css";
 
