@@ -50,7 +50,6 @@ export const QuizExpanded = ({
                 (q: Question): Question => ({ ...q, submission: "" })
             )
         });
-
         sp(0);
     };
 
