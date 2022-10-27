@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Question, QuestionType } from "../interfaces/question";
+import { Button, Form } from "react-bootstrap";
+import { Question } from "../interfaces/question";
 
 import "./QuestionEdit.css";
 
@@ -10,7 +11,14 @@ export const QuestionEdit = ({
     editQuestion,
     removeQuestion,
     swapQuestion
-}: {}) => {
+}: {
+    index: number;
+    lastIndex: number;
+    question: Question;
+    editQuestion: (id: number, q: Question) => void;
+    removeQuestion: (id: number) => void;
+    swapQuestion: (index: number, otherindex: number) => void;
+}) => {
     const [a, b] = useState<number>(
         question.options.findIndex((s: string) => question.expected === s)
     );
@@ -27,18 +35,27 @@ export const QuestionEdit = ({
         });
     };
 
-    const switchMulti = () => {
+    const handleSwitch = () => {
         b(0);
-        editQuestion(question.id, {
-            ...question,
-            type: "multiple_choice_question",
-            expected: "Example Answer",
-            options: Array(3).fill("Example Answer")
-        });
+        if (question.type === "short_answer_question") {
+            editQuestion(question.id, {
+                ...question,
+                type: "multiple_choice_question",
+                expected: "Example Answer",
+                options: Array(3).fill("Example Answer")
+            });
+        } else {
+            editQuestion(question.id, {
+                ...question,
+                type: "short_answer_question",
+                expected: "Example Answer",
+                options: Array(0).fill("Example Answer")
+            });
+        }
     };
 
     const handlePoints = (e: React.ChangeEvent<HTMLInputElement>) => {
-    	question.points = parseInt(e.target.value)
+        question.points = parseInt(e.target.value);
         editQuestion(question.id, question);
     };
 
