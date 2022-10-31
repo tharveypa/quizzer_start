@@ -105,7 +105,7 @@ export const QuizEdit = ({
             <div>
                 {newQuiz.questionList.map((q: Question, index: number) => (
                     <QuestionEdit
-                        key={newQuiz.id + "|" + q.id}
+                        key={newQuiz.id + "| " + q.id}
                         index={index}
                         lastIndex={newQuiz.questionList.length - 1}
                         question={q}
