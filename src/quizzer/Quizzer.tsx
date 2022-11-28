@@ -3,7 +3,6 @@ import { Quiz } from "../interfaces/quiz";
 import { Question, QuestionType } from "../interfaces/question";
 import { QuizList } from "./QuizList";
 import { AddQuizModal } from "./AddQuizModal";
-
 import "./Quizzer.css";
 import sample from "../data/quizzes.json";
 //import { Button } from "react-bootstrap";
@@ -34,7 +33,7 @@ export function Quizzer (): JSX.Element {
     const addQuiz = (title: string, body: string) => {
         const newQuiz: Quiz = {
             title: title, body: body,
-            id: 0,
+            id: quizzes.length+1,
             published: false,
             questionList: []
         };
@@ -63,7 +62,6 @@ export function Quizzer (): JSX.Element {
             ></AddQuizModal>
             <hr />
             <h2 style={{ color: "white" }}>Application Sketch</h2>
-            {/* <img src={require("./sketchFINAL.jpg")} /> */}
             <hr />
             <div style={{ color: "white" }}>
                 <h2>Completed Features</h2>
