@@ -4,10 +4,13 @@ import { Quiz } from "../interfaces/quiz";
 import "./QuizCard.css";
 import { Question } from "../interfaces/question";
 
-export const QuizCard = ({
+export function QuizCard ({
     quiz,
-    handleClick
-}: {) => {
+    handleQuizView
+}: {
+    quiz: Quiz,
+    handleQuizView: (id: number) => void
+}): JSX.Element{
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
             (quiz.published && q.published) || !quiz.published
@@ -19,7 +22,7 @@ export const QuizCard = ({
                 <h3
                     className="title"
                     onClick={() => {
-                        handleClick(quiz.id);
+                        handleQuizView(quiz.id);
                     }}
                 >
                     {quiz.title}
