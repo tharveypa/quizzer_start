@@ -31,6 +31,12 @@ export const Quizzer = () => {
     }
 
     function addQuiz(title: string, body: string) {
+        const newQuiz: Quiz={
+            title:title,body:body,
+            id: 0,
+            published: false,
+            questionList: []
+        };
         setQuizzes([...quizzes, newQuiz]);
     }
 
