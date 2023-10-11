@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Question, QuestionType } from "../interfaces/question";
+import { Question} from "../interfaces/question";
 
 import "./QuestionEdit.css";
+
+interface questionEditInterface {
+    index: number,
+    lastIndex: number,
+    question: Question,
+    editQuestion: (questionId: number, newQuestion: Question) => void,
+    removeQuestion: (questionId: number) => void,
+    swapQuestion: (idx1: number, idx2: number) => void,
+}
 
 export const QuestionEdit = ({
     index,
@@ -11,14 +20,7 @@ export const QuestionEdit = ({
     editQuestion,
     removeQuestion,
     swapQuestion
-}: {
-    index: number
-    lastIndex:number
-    question: Question
-    editQuestion:  (questionId: number, newQuestion: Question) => void
-    removeQuestion: (questionId: number) => void
-    swapQuestion: (idx1: number, idx2: number) => void
-}) => {
+}: questionEditInterface) => {
     const [a, b] = useState<number>(
         question.options.findIndex((s: string) => question.expected === s)
     );
@@ -35,7 +37,7 @@ export const QuestionEdit = ({
         });
     };
 
-    const handleSwitch = () => {
+    const switchMulti = () => {
         b(0);
         editQuestion(question.id, {
             ...question,
@@ -78,7 +80,7 @@ export const QuestionEdit = ({
             <div className="edit_question">
                 <div className="edit_title_row">
                     <div className="edit_title_box">
-                        <h4>{index + 1}. </h4>
+                        <h1>{index + 1}. </h1>
                         <Form.Group
                             className="title_input"
                             controlId="editTitleFormId"
@@ -119,7 +121,7 @@ export const QuestionEdit = ({
                                 <Form.Select
                                     className="type_dropdown"
                                     value={question.type}
-                                    onChange={handleSwitch}
+                                    onChange={() => switchMulti()}
                                 >
                                     <option
                                         data-testid={
@@ -213,18 +215,14 @@ export const QuestionEdit = ({
                         <Button
                             disabled={index === 0}
                             className="swap_button"
-                            onClick={() => {
-                                swapQuestion(index, index - 1);
-                            }}
+                            onClick={() => swapQuestion(index, index - 1)}
                         >
                             ▲
                         </Button>
                         <Button
                             disabled={index === lastIndex}
                             className="swap_button"
-                            onClick={() => {
-                                swapQuestion(index, index + 1);
-                            }}
+                            onClick={() => swapQuestion(index, index + 1)}
                         >
                             ▼
                         </Button>
