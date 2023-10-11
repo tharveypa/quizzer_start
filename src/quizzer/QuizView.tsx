@@ -5,19 +5,16 @@ import { QuizEdit } from "./QuizEdit";
 
 import "./QuizView.css";
 
-interface quizViewProps {
-    quiz: Quiz,
-    editQuiz: (quizId: number, quiz: Quiz) => void,
-    deleteQuiz: (quizId: number) => void,
-    resetView: () => void
-}
-
 export const QuizView = ({
     quiz,
     editQuiz,
     deleteQuiz,
     resetView
-}: quizViewProps) => {
+}: {quiz: Quiz;
+    editQuiz:(qID:number, q:Quiz)=> void;
+    deleteQuiz:(qID:number) => void;
+    resetView: () => void;
+}) => {
     const [edit, setEdit] = useState(false);
 
     const switchEdit = () => {
@@ -45,4 +42,5 @@ export const QuizView = ({
             )}
         </div>
     );
-}
+};
+;

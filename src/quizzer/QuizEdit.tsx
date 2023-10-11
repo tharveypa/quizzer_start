@@ -6,50 +6,53 @@ import { QuestionEdit } from "./QuestionEdit";
 
 import "./QuizEdit.css";
 
-interface quizEditProps {
-    quiz: Quiz,
-    editQuiz: (quizId: number, quiz: Quiz) => void,
-    deleteQuiz: (quizId: number) => void,
-    switchEdit: () => void,
-    resetView: () => void
-}
-
 export const QuizEdit = ({
     quiz,
     editQuiz,
     deleteQuiz,
     switchEdit,
     resetView
-}: quizEditProps) => {
+}: {quiz:Quiz;
+    editQuiz:(qID:number, q:Quiz)=> void; 
+    deleteQuiz:(qID:number) => void;
+    switchEdit: () => void;
+    resetView: () => void;
+
+}) => {
     const [newQuiz, setNewQuiz] = useState<Quiz>({ ...quiz });
 
     const editQuestion = (questionId: number, newQuestion: Question) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.map((thisQuestion: Question) => thisQuestion.id === questionId ? newQuestion : thisQuestion)
+            questionList: newQuiz.questionList.map((question:Question): Question => questionId===question.id ? {...newQuestion}:question)
         });
     };
 
     const removeQuestion = (questionId: number) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.filter((thisQuestion: Question): Boolean => thisQuestion.id !== questionId)
+            questionList: newQuiz.questionList.filter((question:Question):boolean => questionId !== question.id)
+            
         });
     };
 
     const saveChanges = () => {
-        editQuiz(quiz.id, { ...newQuiz });
+        const newTitle= "spam"
+        const newquiz = {...newQuiz,title:newTitle}
+        setNewQuiz(newquiz)
+        editQuiz(quiz.id,newQuiz );
     };
 
     const swapQuestion = (idx1: number, idx2: number) => {
-        console.log("inside swap")
-        const x1Question = {...newQuiz.questionList[idx1]};
-        const x2Question = {...newQuiz.questionList[idx2]};
-        newQuiz.questionList.splice(idx1, 1, x2Question)
-        newQuiz.questionList.splice(idx2, 1, x1Question)
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList
+            questionList: newQuiz.questionList.map(
+                (q: Question, idx: number): Question => {
+                    if (idx === idx1) return newQuiz.questionList[idx2];
+                    if (idx === idx2) return newQuiz.questionList[idx1];
+                    else return newQuiz.questionList[idx2];
+                }
+            )
         });
     };
 
@@ -84,8 +87,8 @@ export const QuizEdit = ({
                             ) => {
                                 setNewQuiz({
                                     ...newQuiz,
-                                    published: !newQuiz.published
-                                });
+                                    published: e.target.checked
+                            });
                             }}
                         ></Form.Check>
                     </div>

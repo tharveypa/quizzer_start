@@ -5,15 +5,6 @@ import { Form, Button } from "react-bootstrap";
 import "./QuizQuestion.css";
 type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
-interface quizQuestionProps {
-    index: number,
-    question: Question,
-    submitted: boolean,
-    handleSubmit: (index: number) => void,
-    addPoints: (points: number) => void,
-    editQuestionSub: (questionId: number, submission: string) => void
-}
-
 export const QuizQuestion = ({
     index,
     question,
@@ -21,7 +12,13 @@ export const QuizQuestion = ({
     handleSubmit,
     addPoints,
     editQuestionSub
-}: quizQuestionProps) => {
+}: {index:number,
+    question:Question,
+    submitted:boolean,
+    handleSubmit:(n:number)=>void,
+    addPoints:(n:number)=>void,
+    editQuestionSub:(n:number,s:string)=>void
+}) => {
     const handleClick = (e: ChangeEvent) => {
         if (!submitted) {
             editQuestionSub(question.id, e.target.value);
@@ -31,10 +28,11 @@ export const QuizQuestion = ({
     const handleSubmitClick = () => {
         handleSubmit(index);
         if (question.submission === question.expected) {
-            addPoints(question.points);
+            addPoints(5);
         }
     };
-return (
+
+    return (
         <>
             <hr />
             <div className="question">
@@ -45,7 +43,7 @@ return (
                     <h4>
                         {question.points} pt{question.points !== 1 ? "s" : ""}
                     </h4>
-                </div>
+                </div>f
                 <div className="answer_box">
                     {question.type === "short_answer_question" && (
                         <Form.Group controlId="formShortAnswerBox">
@@ -61,7 +59,7 @@ return (
                             {question.options.map(
                                 (option: string, i: number) => (
                                     <Form.Check
-                                        type="radio"
+                                        type= "checkbox"
                                         name={"questionChoice" + index}
                                         key={option + " | " + i}
                                         label={option}
@@ -73,7 +71,7 @@ return (
                             )}
                         </div>
                     )}
-<div className="sub_check">
+                    <div className="sub_check">
                         <h2 className={submitted ? "" : "hidden"}>
                             {question.submission === question.expected
                                 ? "✔️"

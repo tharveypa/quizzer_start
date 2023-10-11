@@ -57,7 +57,7 @@ export const Quizzer = () => {
             ></QuizList>
             <AddQuizModal
                 show={showAddModal}
-                handleClose={handleCloseModal}
+                handleCloseModal={handleCloseModal}
                 addQuiz={addQuiz}
             ></AddQuizModal>
             <hr />
