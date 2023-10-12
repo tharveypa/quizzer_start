@@ -50,7 +50,7 @@ export const QuizEdit = ({
                 (q: Question, idx: number): Question => {
                     if (idx === idx1) return newQuiz.questionList[idx2];
                     if (idx === idx2) return newQuiz.questionList[idx1];
-                    else return newQuiz.questionList[idx2];
+                    else return q
                 }
             )
         });
