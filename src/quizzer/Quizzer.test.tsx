@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Quiz } from "../interfaces/quiz";

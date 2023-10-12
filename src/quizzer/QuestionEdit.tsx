@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Question, QuestionType } from "../interfaces/question";

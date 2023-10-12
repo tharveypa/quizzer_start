@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-//type ChangeEvent = React.ChangeEvent<
- //   HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-//>;
+
 export const AddQuizModal = ({
     show,
     handleCloseModal,
