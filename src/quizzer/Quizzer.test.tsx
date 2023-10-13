@@ -1,3 +1,6 @@
+/* eslint-disable testing-library/no-render-in-setup */
+/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable testing-library/prefer-presence-queries */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Quiz } from "../interfaces/quiz";
