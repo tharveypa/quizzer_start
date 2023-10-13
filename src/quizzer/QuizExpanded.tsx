@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Question } from "../interfaces/question";
 import { Quiz } from "../interfaces/quiz";
+import { QuestionEdit } from "./QuestionEdit";
 
 import "./QuizExpanded.css";
 import { QuizQuestion } from "./QuizQuestion";
@@ -11,13 +13,18 @@ export const QuizExpanded = ({
     editQuiz,
     resetView,
     switchEdit
-}: {}) => {
+}: {
+    quiz: Quiz;
+    editQuiz:(qID:number, q:Quiz)=> void; 
+    resetView: () => void;
+    switchEdit: () => void;
+}) => {
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
             (quiz.published && q.published) || !quiz.published
     );
 
-    const [p, sp] = useState<number>(0);
+    const [points, setPoints] = useState<number>(0);
     const [submitArr, setSubmitArr] = useState<boolean[]>(
         new Array(filteredQuestions.length)
     );
@@ -29,15 +36,16 @@ export const QuizExpanded = ({
     };
 
     const totalPoints = filteredQuestions.reduce(
-        (prev: number, q: Question): number => prev + q.p,
+        (prev: number, q: Question): number => prev + q.points,
         0
     );
 
     const addPoints = (p: number) => {
-        sp((prevCount) => prevCount + p);
+        setPoints((prevCount) => prevCount + p);
     };
 
     const reset = () => {
+        console.log("daf")
         setSubmitArr(new Array(filteredQuestions.length));
         editQuiz(quiz.id, {
             ...quiz,
@@ -46,14 +54,13 @@ export const QuizExpanded = ({
             )
         });
 
-        sp(0);
+        setPoints(0);
     };
 
     const editQuestionSub = (questionId: number, sub: string) => {
         editQuiz(quiz.id, {
             ...quiz,
-            questionList: quiz.questionList.map(
-            )
+            questionList: quiz.questionList.map((question:Question): Question=>questionId === question.id? {...question, submission:sub}:{...question})
         });
     };
 
@@ -92,7 +99,7 @@ export const QuizExpanded = ({
                 <QuizQuestion
                     key={quiz.id + "|" + q.id}
                     index={index}
-                    question="q"
+                    question= {q}
                     submitted={submitArr[index]}
                     handleSubmit={handleQuestionSubmit}
                     addPoints={addPoints}
@@ -105,7 +112,7 @@ export const QuizExpanded = ({
                     Reset
                 </Button>
                 <span className="score_report">
-                    {p}/{totalPoints}
+                    {points}/{totalPoints}
                 </span>
             </div>
         </>

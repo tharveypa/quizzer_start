@@ -3,22 +3,25 @@ import { Button, Modal, Form } from "react-bootstrap";
 
 export const AddQuizModal = ({
     show,
-    handleClose,
+    handleCloseModal,
     addQuiz
 }: {
+    show: boolean;
+    handleCloseModal: () => void;
+    addQuiz: (title: string, body:string)=> void;
 }) => {
     const [title, setTitle] = useState<string>("Example Quiz");
-
+    const[body,setBody]= useState<string>("Example Description");
     const saveChanges = () => {
         addQuiz(title, body);
         setTitle("Example Quiz");
         setBody("Example Description");
-        handleClose();
+        handleCloseModal();
     };
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal show={show} onHide={handleCloseModal} animation={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Quiz</Modal.Title>
                 </Modal.Header>
@@ -36,7 +39,10 @@ export const AddQuizModal = ({
                             as="textarea"
                             rows={3}
                             value={body}
-                            onChange={}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            )=> setBody(e.target.value)}
+                            
                         ></Form.Control>
                     </Form.Group>
                 </Modal.Body>
@@ -46,7 +52,7 @@ export const AddQuizModal = ({
                         onClick={() => {
                             setTitle("Example Quiz");
                             setBody("Example Description");
-                            handleClose();
+                            handleCloseModal();
                         }}
                     >
                         Close

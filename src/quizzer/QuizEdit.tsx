@@ -12,27 +12,35 @@ export const QuizEdit = ({
     deleteQuiz,
     switchEdit,
     resetView
-}: {) => {
+}: {quiz:Quiz;
+    editQuiz:(qID:number, q:Quiz)=> void; 
+    deleteQuiz:(qID:number) => void;
+    switchEdit: () => void;
+    resetView: () => void;
+
+}) => {
     const [newQuiz, setNewQuiz] = useState<Quiz>({ ...quiz });
 
     const editQuestion = (questionId: number, newQuestion: Question) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.map(
-            )
+            questionList: newQuiz.questionList.map((question:Question): Question => questionId===question.id ? {...newQuestion}:question)
         });
     };
 
     const removeQuestion = (questionId: number) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.filter(
-            )
+            questionList: newQuiz.questionList.filter((question:Question):boolean => questionId !== question.id)
+            
         });
     };
 
     const saveChanges = () => {
-        editQuiz(quiz.id, { ...newQuiz });
+        const newTitle= "spam"
+        const newquiz = {...newQuiz,title:newTitle}
+        setNewQuiz(newquiz)
+        editQuiz(quiz.id,newQuiz );
     };
 
     const swapQuestion = (idx1: number, idx2: number) => {
@@ -42,7 +50,7 @@ export const QuizEdit = ({
                 (q: Question, idx: number): Question => {
                     if (idx === idx1) return newQuiz.questionList[idx2];
                     if (idx === idx2) return newQuiz.questionList[idx1];
-                    return;
+                    else return q
                 }
             )
         });
@@ -79,8 +87,8 @@ export const QuizEdit = ({
                             ) => {
                                 setNewQuiz({
                                     ...newQuiz,
-                                    published: 
-                                });
+                                    published: e.target.checked
+                            });
                             }}
                         ></Form.Check>
                     </div>
