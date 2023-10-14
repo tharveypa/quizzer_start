@@ -3,11 +3,13 @@ import { Quiz } from "../interfaces/quiz";
 
 import "./QuizCard.css";
 import { Question } from "../interfaces/question";
+//type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>;
 
 export const QuizCard = ({
     quiz,
-    handleClick
-}: {) => {
+    handleClick,
+}: {quiz: Quiz, handleClick: (index: number) => void
+}) => {
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
             (quiz.published && q.published) || !quiz.published
