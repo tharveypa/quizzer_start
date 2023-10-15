@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Question, QuestionType } from "../interfaces/question";
+import React, { ChangeEvent, useState } from "react";
+import { Question /*QuestionType*/ } from "../interfaces/question";
 
 import "./QuestionEdit.css";
+import Button from "react-bootstrap/esm/Button";
+import { Form } from "react-bootstrap";
 
 export const QuestionEdit = ({
     index,
@@ -10,7 +12,11 @@ export const QuestionEdit = ({
     editQuestion,
     removeQuestion,
     swapQuestion
-}: {}) => {
+}: {index: number, lastIndex: number, question: Question,
+    editQuestion: (index: number, question: Question) => void, 
+    removeQuestion: (index: number) => void, 
+    swapQuestion: (index: number, lastIndex: number) => void
+}) => {
     const [a, b] = useState<number>(
         question.options.findIndex((s: string) => question.expected === s)
     );
@@ -27,7 +33,7 @@ export const QuestionEdit = ({
         });
     };
 
-    const switchMulti = () => {
+    /*const switchMulti = () => {
         b(0);
         editQuestion(question.id, {
             ...question,
@@ -35,7 +41,7 @@ export const QuestionEdit = ({
             expected: "Example Answer",
             options: Array(3).fill("Example Answer")
         });
-    };
+    };*/
 
     const handlePoints = (e: React.ChangeEvent<HTMLInputElement>) => {
     	question.points = parseInt(e.target.value)
@@ -63,6 +69,10 @@ export const QuestionEdit = ({
             expected: question.options[idx]
         });
     };
+
+    function handleSwitch(event: ChangeEvent<HTMLSelectElement>): void {
+        throw new Error("Function not implemented.");
+    }
 
     return (
         <>
