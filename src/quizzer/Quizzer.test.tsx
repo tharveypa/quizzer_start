@@ -7,246 +7,240 @@ import userEvent from "@testing-library/user-event";
 import sample from "../data/quizzes.json";
 
 const QUIZZES = sample.map(
-    (quiz): Quiz => ({
-        ...quiz,
-        questionList: quiz.questionList.map(
-            (q): Question => ({
-                ...q,
-                submission: "",
-                type: q.type as QuestionType
-            })
-        )
-    })
+  (quiz): Quiz => ({
+    ...quiz,
+    questionList: quiz.questionList.map(
+      (q): Question => ({
+        ...q,
+        submission: "",
+        type: q.type as QuestionType,
+      })
+    ),
+  })
 );
 
 describe("Quizzer Tests", () => {
-    beforeEach(() => {
-        render(<Quizzer />);
-    });
-    test("Users can add a new quiz", () => {
-        const button = screen.getByText("Add New Quiz");
-        expect(screen.queryByLabelText("Title: ")).not.toBeInTheDocument();
-        button.click();
-        expect(screen.queryByLabelText("Title:")).toBeInTheDocument();
-        const saveButton = screen.getByText("Save Changes");
-        saveButton.click();
-        expect(screen.queryByText("Example Quiz")).toBeInTheDocument();
-    });
+  beforeEach(() => {
+    render(<Quizzer />);
+  });
+  test("Users can add a new quiz", () => {
+    const button = screen.getByText("Add New Quiz");
+    expect(screen.queryByLabelText("Title: ")).not.toBeInTheDocument();
+    button.click();
+    expect(screen.queryByLabelText("Title:")).toBeInTheDocument();
+    const saveButton = screen.getByText("Save Changes");
+    saveButton.click();
+    expect(screen.queryByText("Example Quiz")).toBeInTheDocument();
+  });
 
-    test("Users can see a list of quizzes, including the quizzes title, description, and how many questions it has", () => {
-        for (let i = 0; i < QUIZZES.length; i++) {
-            expect(screen.queryByText(QUIZZES[i].title)).toBeInTheDocument();
-            expect(
-                screen.queryByText(
-                    QUIZZES[i].questionList.length + " question",
-                    { exact: false }
-                )
-            ).toBeInTheDocument();
-            expect(
-                screen.queryByText(QUIZZES[i].body, { exact: false })
-            ).toBeInTheDocument();
-        }
-    });
+  test("Users can see a list of quizzes, including the quizzes title, description, and how many questions it has", () => {
+    for (let i = 0; i < QUIZZES.length; i++) {
+      expect(screen.queryByText(QUIZZES[i].title)).toBeInTheDocument();
+      expect(
+        screen.queryByText(QUIZZES[i].questionList.length + " question", {
+          exact: false,
+        })
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText(QUIZZES[i].body, { exact: false })
+      ).toBeInTheDocument();
+    }
+  });
 
-    test("Users can select a specific quiz to see the questions, including the questions name, body, and points", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        expect(screen.queryByText("Exit")).toBeInTheDocument();
+  test("Users can select a specific quiz to see the questions, including the questions name, body, and points", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    expect(screen.queryByText("Exit")).toBeInTheDocument();
+    expect(
+      screen.queryByText("What is 2+2?", { exact: false })
+    ).toBeInTheDocument();
+    for (let i = 0; i < QUIZZES[1].questionList.length; i++) {
+      if (QUIZZES[1].questionList[i].published === true) {
         expect(
-            screen.queryByText("What is 2+2?", { exact: false })
+          screen.queryByText(QUIZZES[1].questionList[i].body, {
+            exact: false,
+          })
         ).toBeInTheDocument();
-        for (let i = 0; i < QUIZZES[1].questionList.length; i++) {
-            if (QUIZZES[1].questionList[i].published === true) {
-                expect(
-                    screen.queryByText(QUIZZES[1].questionList[i].body, {
-                        exact: false
-                    })
-                ).toBeInTheDocument();
-                expect(
-                    screen.queryAllByText(
-                        QUIZZES[1].questionList[i].points + " pt",
-                        { exact: false }
-                    )[0]
-                ).toBeInTheDocument();
-            }
-        }
-    });
-
-    test("Users can enter or choose an answer for a quiz question, and be told if they are correct", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        expect(screen.queryByText("Exit")).toBeInTheDocument();
         expect(
-            screen.queryByText("What is 2+2?", { exact: false })
+          screen.queryAllByText(QUIZZES[1].questionList[i].points + " pt", {
+            exact: false,
+          })[0]
         ).toBeInTheDocument();
-        const selectOption = screen.getAllByTestId("select-option")[0];
-        expect(screen.queryByText("✔️")).not.toBeInTheDocument();
-        userEvent.type(selectOption, "4");
-        const submitButton = screen.getAllByText("Submit")[0];
-        submitButton.click();
-        expect(screen.queryByText("✔️")).toBeInTheDocument();
-    });
+      }
+    }
+  });
 
-    test("Users can see how many total points they have earned", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        expect(screen.queryByText(/\d\/\d/)).toBeInTheDocument();
-    });
+  test("Users can enter or choose an answer for a quiz question, and be told if they are correct", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    expect(screen.queryByText("Exit")).toBeInTheDocument();
+    expect(
+      screen.queryByText("What is 2+2?", { exact: false })
+    ).toBeInTheDocument();
+    const selectOption = screen.getAllByTestId("select-option")[0];
+    expect(screen.queryByText("✔️")).not.toBeInTheDocument();
+    userEvent.type(selectOption, "4");
+    const submitButton = screen.getAllByText("Submit")[0];
+    submitButton.click();
+    expect(screen.queryByText("✔️")).toBeInTheDocument();
+  });
 
-    test("Users can clear out their existing answers for a quiz", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        expect(screen.queryByText("Exit")).toBeInTheDocument();
-        expect(
-            screen.queryByText("What is 2+2?", { exact: false })
-        ).toBeInTheDocument();
-        const selectOption = screen.getAllByTestId("select-option")[0];
-        expect(screen.queryByText("✔️")).not.toBeInTheDocument();
+  test("Users can see how many total points they have earned", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    expect(screen.queryByText(/\d\/\d/)).toBeInTheDocument();
+  });
 
-        userEvent.type(selectOption, "4");
-        expect(selectOption).toHaveValue("4");
-        const submitButton = screen.getAllByText("Submit")[0];
-        submitButton.click();
-        expect(screen.queryByText("✔️")).toBeInTheDocument();
+  test("Users can clear out their existing answers for a quiz", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    expect(screen.queryByText("Exit")).toBeInTheDocument();
+    expect(
+      screen.queryByText("What is 2+2?", { exact: false })
+    ).toBeInTheDocument();
+    const selectOption = screen.getAllByTestId("select-option")[0];
+    expect(screen.queryByText("✔️")).not.toBeInTheDocument();
 
-        const resetButton = screen.getByText("Reset"); // Click Reset button, the forum should have no value now and ✔️ should not be in the document.
-        resetButton.click();
-        expect(screen.queryByText("✔️")).not.toBeInTheDocument();
-        expect(selectOption).toHaveValue("");
-    });
+    userEvent.type(selectOption, "4");
+    expect(selectOption).toHaveValue("4");
+    const submitButton = screen.getAllByText("Submit")[0];
+    submitButton.click();
+    expect(screen.queryByText("✔️")).toBeInTheDocument();
 
-    test("Users can publish or unpublish a question", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+    const resetButton = screen.getByText("Reset"); // Click Reset button, the forum should have no value now and ✔️ should not be in the document.
+    resetButton.click();
+    expect(screen.queryByText("✔️")).not.toBeInTheDocument();
+    expect(selectOption).toHaveValue("");
+  });
 
-        const publishedCheck = screen.getAllByTestId(
-            "question_published_check"
-        )[3];
-        publishedCheck.click();
-        expect(publishedCheck).toBeChecked();
+  test("Users can publish or unpublish a question", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        const saveButton = screen.getByText("Save");
-        saveButton.click();
+    const publishedCheck = screen.getAllByTestId("question_published_check")[3];
+    publishedCheck.click();
+    expect(publishedCheck).toBeChecked();
 
-        expect(
-            screen.queryByText(QUIZZES[1].questionList[3].body, {
-                exact: false
-            })
-        ).toBeInTheDocument();
-    });
+    const saveButton = screen.getByText("Save");
+    saveButton.click();
 
-    test("Users can filter the questions in a list so that only published questions are shown", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+    expect(
+      screen.queryByText(QUIZZES[1].questionList[3].body, {
+        exact: false,
+      })
+    ).toBeInTheDocument();
+  });
 
-        const quizPublished = screen.getByTestId("Quiz Published");
-        quizPublished.click();
-        expect(quizPublished).not.toBeChecked();
+  test("Users can filter the questions in a list so that only published questions are shown", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        const saveButton = screen.getByText("Save");
-        saveButton.click();
+    const quizPublished = screen.getByTestId("Quiz Published");
+    quizPublished.click();
+    expect(quizPublished).not.toBeChecked();
 
-        expect(
-            screen.queryByText(QUIZZES[1].questionList[1].body, {
-                exact: false
-            })
-        ).toBeInTheDocument();
-    });
+    const saveButton = screen.getByText("Save");
+    saveButton.click();
 
-    test("Users can delete an existing quiz", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+    expect(
+      screen.queryByText(QUIZZES[1].questionList[1].body, {
+        exact: false,
+      })
+    ).toBeInTheDocument();
+  });
 
-        const deleteButton = screen.getByText("Delete Quiz");
-        deleteButton.click();
+  test("Users can delete an existing quiz", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        expect(screen.queryByText("Simple_Questions")).not.toBeInTheDocument();
-    });
+    const deleteButton = screen.getByText("Delete Quiz");
+    deleteButton.click();
 
-    test("Users can delete an existing quiz question", () => {
-    });
+    expect(screen.queryByText("Simple_Questions")).not.toBeInTheDocument();
+  });
 
-    test("Users can add a new quiz question", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
+  test("Users can delete an existing quiz question", () => {});
 
-        expect(
-            screen.queryByText("Example Question", { exact: false })
-        ).not.toBeInTheDocument();
+  test("Users can add a new quiz question", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
 
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+    expect(
+      screen.queryByText("Example Question", { exact: false })
+    ).not.toBeInTheDocument();
 
-        const addButton = screen.getByText("Add Question");
-        addButton.click();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        const quizPublished = screen.getByTestId("Quiz Published");
-        quizPublished.click();
-        expect(quizPublished).not.toBeChecked();
+    const addButton = screen.getByText("Add Question");
+    addButton.click();
 
-        const saveButton = screen.getByText("Save");
-        saveButton.click();
+    const quizPublished = screen.getByTestId("Quiz Published");
+    quizPublished.click();
+    expect(quizPublished).not.toBeChecked();
 
-        expect(
-            screen.queryByText("Example Question", { exact: false })
-        ).toBeInTheDocument();
-    });
+    const saveButton = screen.getByText("Save");
+    saveButton.click();
 
-    test("Users can edit the questions and fields of a quiz", () => {
-    });
+    expect(
+      screen.queryByText("Example Question", { exact: false })
+    ).toBeInTheDocument();
+  });
 
-    test("Users can reorder quiz questions", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
+  test("Users can edit the questions and fields of a quiz", () => {});
 
-        const intialOrder = screen.getAllByTestId("question_body");
-        expect(intialOrder[0]).toHaveTextContent("What is 2+2?");
-        expect(intialOrder[1]).toHaveTextContent("Which of these is a color?");
+  test("Users can reorder quiz questions", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
 
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+    const intialOrder = screen.getAllByTestId("question_body");
+    expect(intialOrder[0]).toHaveTextContent("What is 2+2?");
+    expect(intialOrder[1]).toHaveTextContent("Which of these is a color?");
 
-        const orderArrow = screen.getAllByText("▲")[1];
-        orderArrow.click();
-        const orderArrow2 = screen.getAllByText("▲")[2];
-        orderArrow2.click();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        const saveButton = screen.getByText("Save");
-        saveButton.click();
+    const orderArrow = screen.getAllByText("▲")[1];
+    orderArrow.click();
+    const orderArrow2 = screen.getAllByText("▲")[2];
+    orderArrow2.click();
 
-        const afterOrder = screen.getAllByTestId("question_body");
-        expect(afterOrder[0]).toHaveTextContent("Which of these is a color?");
-        expect(afterOrder[1]).toHaveTextContent("What is 2+2?");
-    });
+    const saveButton = screen.getByText("Save");
+    saveButton.click();
 
-    test("Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question", () => {
-        const text = screen.getByText("Simple_Questions");
-        text.click();
+    const afterOrder = screen.getAllByTestId("question_body");
+    expect(afterOrder[0]).toHaveTextContent("Which of these is a color?");
+    expect(afterOrder[1]).toHaveTextContent("What is 2+2?");
+  });
 
-        const editButton = screen.getByText("Edit");
-        editButton.click();
+  test("Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question", () => {
+    const text = screen.getByText("Simple_Questions");
+    text.click();
 
-        const dropdown = screen.getAllByLabelText("Type:")[0];
-        userEvent.selectOptions(dropdown, "multiple_choice_question");
-        const options: HTMLOptionElement[] = screen.getAllByTestId(
-            "question_type_dropdown_0"
-        );
-        expect(options[0].selected).toBeTruthy();
-        expect(options[1].selected).toBeFalsy();
+    const editButton = screen.getByText("Edit");
+    editButton.click();
 
-        const saveButton = screen.getByText("Save");
-        saveButton.click();
+    const dropdown = screen.getAllByLabelText("Type:")[0];
+    userEvent.selectOptions(dropdown, "multiple_choice_question");
+    const options: HTMLOptionElement[] = screen.getAllByTestId(
+      "question_type_dropdown_0"
+    );
+    expect(options[0].selected).toBeTruthy();
+    expect(options[1].selected).toBeFalsy();
 
-        expect(
-            screen.queryAllByText("Example Answer", {
-                exact: false
-            })[0]
-        ).toBeInTheDocument();
-    });
+    const saveButton = screen.getByText("Save");
+    saveButton.click();
+
+    expect(
+      screen.queryAllByText("Example Answer", {
+        exact: false,
+      })[0]
+    ).toBeInTheDocument();
+  });
 });
