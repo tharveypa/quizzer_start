@@ -12,23 +12,23 @@ export const QuizEdit = ({
     deleteQuiz,
     switchEdit,
     resetView
-}: {) => {
+}: {quiz:Quiz; editQuiz:(id:number, newQuiz:Quiz)=> void; deleteQuiz:(id:number)=> void; switchEdit:()=> void; resetView:()=>void;}) => {
     const [newQuiz, setNewQuiz] = useState<Quiz>({ ...quiz });
 
     const editQuestion = (questionId: number, newQuestion: Question) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.map(
-            )
-        });
+            questionList: newQuiz.questionList.map((q: Question):Question => questionId === q.id ? newQuestion : q) 
+        }
+        );
     };
 
     const removeQuestion = (questionId: number) => {
         setNewQuiz({
             ...newQuiz,
-            questionList: newQuiz.questionList.filter(
-            )
-        });
+            questionList: newQuiz.questionList.filter((q: Question):boolean => questionId !== q.id)
+        }
+        );
     };
 
     const saveChanges = () => {
@@ -42,7 +42,7 @@ export const QuizEdit = ({
                 (q: Question, idx: number): Question => {
                     if (idx === idx1) return newQuiz.questionList[idx2];
                     if (idx === idx2) return newQuiz.questionList[idx1];
-                    return;
+                    return newQuiz.questionList[idx];
                 }
             )
         });
@@ -79,7 +79,7 @@ export const QuizEdit = ({
                             ) => {
                                 setNewQuiz({
                                     ...newQuiz,
-                                    published: 
+                                    published: e.target.checked
                                 });
                             }}
                         ></Form.Check>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { Question, QuestionType } from "../interfaces/question";
 
 import "./QuestionEdit.css";
+import { Button, Form } from "react-bootstrap";
 
 export const QuestionEdit = ({
     index,
@@ -10,7 +11,8 @@ export const QuestionEdit = ({
     editQuestion,
     removeQuestion,
     swapQuestion
-}: {}) => {
+}: {index:number; lastIndex:number; removeQuestion:(id:number)=> void ; swapQuestion: (idx1:number, idx2:number)=> void ;
+    question:Question; editQuestion:(id:number, question:Question) => void ;}) => {
     const [a, b] = useState<number>(
         question.options.findIndex((s: string) => question.expected === s)
     );
@@ -27,6 +29,15 @@ export const QuestionEdit = ({
         });
     };
 
+    const switchShort = () => {
+        b(0);
+        editQuestion(question.id, {
+            ...question,
+            type: "short_answer_question",
+            expected: "Example Answer",
+            options: Array(3).fill("Example Answer")
+        });
+    };
     const switchMulti = () => {
         b(0);
         editQuestion(question.id, {
@@ -63,6 +74,15 @@ export const QuestionEdit = ({
             expected: question.options[idx]
         });
     };
+
+    function handleSwitch(event: React.ChangeEvent<HTMLSelectElement>): void {
+        const type:QuestionType = event.target.value === "short_answer_question" ? "short_answer_question" : "multiple_choice_question";
+        if(type === "short_answer_question"){
+            switchShort()
+        }else{
+            switchMulti()
+        };
+    }
 
     return (
         <>
