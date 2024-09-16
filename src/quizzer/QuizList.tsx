@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Quiz } from "../interfaces/quiz";
@@ -10,7 +11,7 @@ export const QuizList = ({
     editQuiz,
     deleteQuiz,
     showModal
-}: {}) => {
+}: {quizzes:Quiz[];editQuiz:(id:number, newQuiz:Quiz)=> void;deleteQuiz:(id:number)=> void;showModal:()=>void;}) => {
     const [displayId, setDisplayId] = useState<null | number>(null);
 
     const handleQuizView = (id: number) => {
